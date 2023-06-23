@@ -7,13 +7,15 @@ The Neural network, a criterion using Mean Squared Error loss, and a optimizer u
 
 At some point throughout the model, it is saved along with a checkpoint that takes many parameters for later to be loaded again without dealing with the hassle of relearning.
 
-# PROBLEMS
-Calculation of yield spreads has to be done manually as dataframe has to find all the columns by the concatanation of the field name and field mnemomic. Incomplete columns where data does not start collecting until much much later (i.e. multiple 5yr Treasury and 5yr Eris SOFR swap tickers) means that only one instrument was picked for each and not a aggregation of all of them, but were instead utilized as market information that helps predict the yield spreads of the main instruments that do contain most (if not all) of the data. Hyperparameters section of model need to manually tune the hardcoded explicit values such as hidden_size_1, hidden_size_2, and output to the csv that is pulled from.
+# Issues
+Calculation of yield spreads has to be done manually as dataframe has to find all the columns by the concatanation of the field name and field mnemomic. Incomplete columns where data does not start collecting until much much later (i.e. multiple 5yr Treasury and 5yr Eris SOFR swap tickers) means that only one instrument was picked for each and not a aggregation of all of them, but were instead utilized as market information that helps predict the yield spreads of the main instruments that do contain most (if not all) of the data. Hyperparameters section of the model needs to be manually tuned in-regard to the explicit values of hidden_size_1, hidden_size_2, and learning_rate on the basis of the csv that is pulled from.
 
 # FUTURE
 Calculation of yield spreads to be done in a more intuitive way. Incorporate some sort of imputation such as MICE to take care of data that starts later in a better way by filling hundreds of rows of missing data in a non-linear way to possibly be incorporated into a aggregation of a single instrument or just better maket information. Find a way to pull articles that use tf-idf to keen in on terms that may negatively or postively affect the prediction the yield spreads.
 
 # HOW-TO-USE
+* if on google.colab, want to enable GPU utilization for faster processing by going to Edit -> Notebook Settings -> Hardware Accelerator -> GPU
+
 Before anything, have a google drive with a folder such as BBGdatasets where keep csv datasets wanting to load, and within the BBGdatasets, have another folder MLmodels where states of the neural network model will be saved. Will want to copy paths and replace with my ipynb/py code.
 
 First, have a proper formatted csv file with the daily historical and sentimental analysis data such as the 'PX_LAST' and 'PX_SETTLE' for each instrument, security, and violotality rates among others. The csv should be indexed by the daily dates and be multi-header with columns having first header being the Field and the second one being the Field Mnemomic. Make sure to group by field. Showing dates such as beginning and end time will not allow for data to be grabbed and transformed. I have attached a sample csv that contains 389 rows and 52 columns of daily historical and sentimental analysis data to see the format of the csv that should be introduced.
