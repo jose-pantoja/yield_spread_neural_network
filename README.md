@@ -1,4 +1,4 @@
-# SUMMARY
+# Summary
 This is a neural network model for the application of predicting the spread bias of multiple instruments such as MTGEFNCL Index, LRC30APR Index, 5yr Treasury, and 5yr Eris SOFR swap. The .ipynb/py ML model code begins with taking a dataframe that does not contain the yields spreads of the instruments but utilizes the daily historical data that is present to calculate them individually for each pair of instruments being compared. A new dataframe is created that incorporates the newly-calculated yield spreads to be at the beginning with n amount of columns (where n = i x j with i being the # of instruments and j the # of spreads for the respective instrument). The rest of the columns of the new dataframe contain other historical and sentimental analysis data. The data is converted to a NumPy array that is split into the yield spreads and market information (i.e. not the yield spreads) but is then joined to be converted to a tensor and split into training, validation, and testing sets. Scaling of something like scikit-learn MinMaxScaler for training, validation, and test sets does not happen as features that will me inputted are similar.
 
 The neural network for spread bias is then created; the neural network incoporates the columns of the dataframe where yield spreads are first indluded and 2 hidden linear layers that are subject to change manually given number of dataframe columns; there are also 2 rectified linear unit (ReLU) activation functions that take the inputs and outputs of the layers; when the neural network is called it takes the training, validation, or test data of the concatenated yield spreads and market info to ouput the yield spreads (i.e. manually input n in the hyperparameters). 
@@ -10,11 +10,11 @@ At some point throughout the model, it is saved along with a checkpoint that tak
 # Issues
 Calculation of yield spreads has to be done manually as dataframe has to find all the columns by the concatanation of the field name and field mnemomic. Incomplete columns where data does not start collecting until much much later (i.e. multiple 5yr Treasury and 5yr Eris SOFR swap tickers) means that only one instrument was picked for each and not a aggregation of all of them, but were instead utilized as market information that helps predict the yield spreads of the main instruments that do contain most (if not all) of the data. Hyperparameters section of the model needs to be manually tuned in-regard to the explicit values of hidden_size_1, hidden_size_2, and learning_rate on the basis of the csv that is pulled from.
 
-# FUTURE
+# Future
 Calculation of yield spreads to be done in a more intuitive way. Incorporate some sort of imputation such as MICE to take care of data that starts later in a better way by filling hundreds of rows of missing data in a non-linear way to possibly be incorporated into a aggregation of a single instrument or just better maket information. Find a way to pull articles that use tf-idf to keen in on terms that may negatively or postively affect the prediction the yield spreads.
 
-# HOW-TO-USE
-* if on google.colab, want to enable GPU utilization for faster processing by going to Edit -> Notebook Settings -> Hardware Accelerator -> GPU
+# How-to-use
+Note that if on google.colab, want to enable GPU utilization for faster processing by going to Edit -> Notebook Settings -> Hardware Accelerator -> GPU
 
 Before anything, have a google drive with a folder such as BBGdatasets where keep csv datasets wanting to load, and within the BBGdatasets, have another folder MLmodels where states of the neural network model will be saved. Will want to copy paths and replace with my ipynb/py code.
 
@@ -28,9 +28,9 @@ In actual step by step terms, if calculating yield spreads different from just (
 Many complicated and incorrect ml models among other types were created and tested for the main goal of spread performance prediction, also, data was plotted and regressed for the purpose of investigating trends; however, the model necessitated a very straightford and direct approach as in essence it is just taking yield spreads of a multitude of instruments and utilzing other market information to see which instrument performs best.
 
 # Dependecies
-google.colab
-Python 3
-Numpy
-Pandas
-Scikit-Learn
-torch
+* google.colab
+* Python 3
+* Numpy
+* Pandas
+* Scikit-Learn
+* torch
